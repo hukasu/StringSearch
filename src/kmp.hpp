@@ -17,7 +17,7 @@
 #include <vector>
 
 namespace string_search {
-    class KMP : public BaseStringSearch {
+    class KnuthMorrisPrattStringSearch : public BaseStringSearch {
         std::vector<int64_t> table;
 
         void buildTable();
@@ -27,7 +27,7 @@ namespace string_search {
             std::istream::char_type &var
         );
     public:
-        KMP(std::unique_ptr<std::istream> search, std::unique_ptr<std::istream> word);
+        KnuthMorrisPrattStringSearch(std::unique_ptr<std::istream> search, std::unique_ptr<std::istream> word);
     
         std::optional<size_t> next() override;
 

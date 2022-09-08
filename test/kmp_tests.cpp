@@ -26,7 +26,7 @@ TEST_CASE("Table Build 1") {
         std::ios::in | std::ios::binary
     );
 
-    string_search::KMP kmp(std::move(search), std::move(word));
+    string_search::KnuthMorrisPrattStringSearch kmp(std::move(search), std::move(word));
     
     const std::vector<int64_t>& built_table = kmp.getTable();
     const std::vector<int64_t> test_table = {-1, 0, 0, 0, -1, 0, 2, 0};
@@ -44,7 +44,7 @@ TEST_CASE("Table Build 2") {
         std::ios::in | std::ios::binary
     );
 
-    string_search::KMP kmp(std::move(search), std::move(word));
+    string_search::KnuthMorrisPrattStringSearch kmp(std::move(search), std::move(word));
     
     const std::vector<int64_t>& built_table = kmp.getTable();
     const std::vector<int64_t> test_table = {-1, 0, -1, 1, -1, 0, -1, 3, 2, 0};
@@ -62,7 +62,7 @@ TEST_CASE("Table Build 3") {
         std::ios::in | std::ios::binary
     );
 
-    string_search::KMP kmp(std::move(search), std::move(word));
+    string_search::KnuthMorrisPrattStringSearch kmp(std::move(search), std::move(word));
     
     const std::vector<int64_t>& built_table = kmp.getTable();
     const std::vector<int64_t> test_table = {-1, 0, -1, 1, -1, 0, -1, 3, -1, 3};
@@ -80,7 +80,7 @@ TEST_CASE("Table Build 4") {
         std::ios::in | std::ios::binary
     );
 
-    string_search::KMP kmp(std::move(search), std::move(word));
+    string_search::KnuthMorrisPrattStringSearch kmp(std::move(search), std::move(word));
     
     const std::vector<int64_t>& built_table = kmp.getTable();
     const std::vector<int64_t> test_table = {
@@ -102,7 +102,7 @@ TEST_CASE("String search test 1") {
         std::ios::in | std::ios::binary
     );
 
-    string_search::KMP kmp(std::move(search), std::move(word));
+    string_search::KnuthMorrisPrattStringSearch kmp(std::move(search), std::move(word));
     
     std::optional<size_t> result = kmp.next();
 
@@ -120,7 +120,7 @@ TEST_CASE("String search test 2") {
         std::ios::in | std::ios::binary
     );
 
-    string_search::KMP kmp(std::move(search), std::move(word));
+    string_search::KnuthMorrisPrattStringSearch kmp(std::move(search), std::move(word));
     
     std::optional<size_t> result = kmp.next();
     if (result.has_value()) CHECK_EQ(result.value(), 0);

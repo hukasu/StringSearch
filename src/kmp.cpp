@@ -12,14 +12,14 @@
 #include "kmp.hpp"
 
 namespace string_search {
-    KMP::KMP(
+    KnuthMorrisPrattStringSearch::KnuthMorrisPrattStringSearch(
         std::unique_ptr<std::istream> search,
         std::unique_ptr<std::istream> word
     ) : BaseStringSearch(std::move(search), std::move(word)) {
         buildTable();
     }
 
-    void KMP::buildTable() {
+    void KnuthMorrisPrattStringSearch::buildTable() {
         typename std::istream::pos_type pos = 1, cur = 0;
         typename std::istream::char_type pos_c, cur_c;
         
@@ -59,7 +59,7 @@ namespace string_search {
         word->seekg(std::ios::beg, 0);
     }
 
-    std::optional<size_t> KMP::next() {
+    std::optional<size_t> KnuthMorrisPrattStringSearch::next() {
         typename std::istream::char_type s_c, w_c;
 
         // Get current character
@@ -105,7 +105,7 @@ namespace string_search {
         }
     }
 
-    std::unique_ptr<std::istream> KMP::seekAndPeek(
+    std::unique_ptr<std::istream> KnuthMorrisPrattStringSearch::seekAndPeek(
         std::unique_ptr<std::istream> stream,
         std::istream::pos_type pos,
         std::istream::char_type &var
@@ -120,7 +120,7 @@ namespace string_search {
         return std::move(stream);
     }
 
-    const std::vector<int64_t>& KMP::getTable() const {
+    const std::vector<int64_t>& KnuthMorrisPrattStringSearch::getTable() const {
         return table;
     }
 }
