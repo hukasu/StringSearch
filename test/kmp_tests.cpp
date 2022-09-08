@@ -1,6 +1,6 @@
 /**
  * @file kmp_tests.cpp
- * @author your name (you@domain.com)
+ * @author Lucas Farias (lucasfnf@gmail.com)
  * @brief Tests for Knuth–Morris–Pratt algorithm
  * @version 0.1
  * @date 2022-09-05
