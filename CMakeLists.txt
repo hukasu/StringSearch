@@ -34,7 +34,7 @@ if (BUILD_TESTS)
         PRIVATE doctest::doctest
     )
     target_compile_features(
-        string_search
+        kmp_tests
         PUBLIC cxx_std_20
     )
     add_test(
