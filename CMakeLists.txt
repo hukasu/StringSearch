@@ -7,6 +7,7 @@ option("BUILD_TESTS" "Enables building of tests" OFF)
 add_library(
     string_search
     STATIC
+    src/naive.cpp
     src/kmp.cpp
 )
 target_include_directories(
