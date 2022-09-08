@@ -15,9 +15,7 @@ namespace string_search {
     KMP::KMP(
         std::unique_ptr<std::istream> search,
         std::unique_ptr<std::istream> word
-    ) {
-        this->search = std::move(search);
-        this->word = std::move(word);
+    ) : BaseStringSearch(std::move(search), std::move(word)) {
         buildTable();
     }
 

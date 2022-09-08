@@ -12,16 +12,12 @@
 #ifndef __KMP__HPP__
 #define __KMP__HPP__
 
-#include <memory>
-#include <istream>
+#include "base_string_search.hpp"
+
 #include <vector>
 
-#include <optional>
-
 namespace string_search {
-    class KMP {
-        std::unique_ptr<std::istream> search;
-        std::unique_ptr<std::istream> word;
+    class KMP : public BaseStringSearch {
         std::vector<int64_t> table;
 
         void buildTable();
@@ -33,7 +29,7 @@ namespace string_search {
     public:
         KMP(std::unique_ptr<std::istream> search, std::unique_ptr<std::istream> word);
     
-        std::optional<size_t> next();
+        std::optional<size_t> next() override;
 
         const std::vector<int64_t>& getTable() const;
     };
