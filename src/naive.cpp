@@ -18,7 +18,7 @@ namespace string_search {
     ) : BaseStringSearch(std::move(search), std::move(word)) {}
 
     std::optional<size_t> NaiveStringSearch::next() {
-        typename std::istream::pos_type s_rewind, w_rewind;
+        typename std::istream::pos_type s_rewind;
         typename std::istream::char_type s_c, w_c;
         bool is_comparing = false;
 
@@ -26,16 +26,20 @@ namespace string_search {
             search->get(s_c);
             word->get(w_c);
 
-            if (is_comparing && (s_c != w_c)) {
+            if (is_comparing && (s_c == w_c)) {
+                continue;
+            } else if (is_comparing && (s_c != w_c)) {
+                if (word->eof()) break;
                 is_comparing = false;
 
                 search->seekg(s_rewind, std::ios::beg);
-                word->seekg(w_rewind, std::ios::beg);
+                word->seekg(0, std::ios::beg);
             } else if (!is_comparing && (s_c == w_c)) {
                 is_comparing = true;
 
                 s_rewind = search->tellg();
-                w_rewind = word->tellg();
+            } else if (!is_comparing && (s_c != w_c)) {
+                word->unget();
             }
         }
 
