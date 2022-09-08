@@ -27,7 +27,7 @@ namespace string_search {
             std::istream::char_type &var
         );
     public:
-        KnuthMorrisPrattStringSearch(std::unique_ptr<std::istream> search, std::unique_ptr<std::istream> word);
+        KnuthMorrisPrattStringSearch(std::unique_ptr<std::istream> text, std::unique_ptr<std::istream> pattern);
     
         std::optional<size_t> next() override;
 

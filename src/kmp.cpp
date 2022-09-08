@@ -24,18 +24,18 @@ namespace string_search {
         typename std::istream::char_type pos_c, cur_c;
         
         // Get word size
-        word->seekg(0, std::ios::end);
-        const typename std::istream::pos_type word_end = word->tellg();
+        pattern->seekg(0, std::ios::end);
+        const typename std::istream::pos_type word_end = pattern->tellg();
         // Reserve table
         table.resize(static_cast<size_t>(word_end) + 1, 0);
         // Reset word
-        word->seekg(0, std::ios::beg);
+        pattern->seekg(0, std::ios::beg);
 
         // Initial table value
         table[0] = -1;
 
-        word = seekAndPeek(std::move(word), cur, cur_c);
-        word = seekAndPeek(std::move(word), pos, pos_c);
+        pattern = seekAndPeek(std::move(pattern), cur, cur_c);
+        pattern = seekAndPeek(std::move(pattern), pos, pos_c);
         for (pos = 1; pos < word_end; ) {
             if (pos_c == cur_c) {
                 table[pos] = table[cur]; 
@@ -44,61 +44,61 @@ namespace string_search {
                 while (cur >= 0 && pos_c != cur_c) {
                     cur = table[cur];
                     if (cur >= 0) {
-                        word = seekAndPeek(std::move(word), cur, cur_c);
+                        pattern = seekAndPeek(std::move(pattern), cur, cur_c);
                     }
                 }
             }
 
             pos += 1;
-            word = seekAndPeek(std::move(word), pos, pos_c);
+            pattern = seekAndPeek(std::move(pattern), pos, pos_c);
             cur += 1;
-            word = seekAndPeek(std::move(word), cur, cur_c);
+            pattern = seekAndPeek(std::move(pattern), cur, cur_c);
         }
 
         table[pos] = cur;
-        word->seekg(std::ios::beg, 0);
+        pattern->seekg(std::ios::beg, 0);
     }
 
     std::optional<size_t> KnuthMorrisPrattStringSearch::next() {
         typename std::istream::char_type s_c, w_c;
 
         // Get current character
-        s_c = search->peek();
-        w_c = word->peek();
-        while (search->good() && word->good()) {
+        s_c = text->peek();
+        w_c = pattern->peek();
+        while (text->good() && pattern->good()) {
             if (w_c == s_c) {
                 // Advance pointers by one
-                search->ignore();
-                word->ignore();
+                text->ignore();
+                pattern->ignore();
             } else {
-                typename std::istream::pos_type w_pos = table[static_cast<int64_t>(word->tellg())];
+                typename std::istream::pos_type w_pos = table[static_cast<int64_t>(pattern->tellg())];
                 if (w_pos < 0) {
-                    search->ignore();
-                    word->seekg(0, std::ios::beg);
+                    text->ignore();
+                    pattern->seekg(0, std::ios::beg);
                 } else {
-                    word->seekg(w_pos, std::ios::beg);
+                    pattern->seekg(w_pos, std::ios::beg);
                 }
             }
 
             // Get current character
-            s_c = search->peek();
-            w_c = word->peek();
+            s_c = text->peek();
+            w_c = pattern->peek();
         }
 
-        if (word->eof()) {
+        if (pattern->eof()) {
             // Reset EOF
-            search->clear();
-            word->clear();
+            text->clear();
+            pattern->clear();
 
             // Calculate start of match
-            typename std::istream::pos_type s_pos = search->tellg();
-            typename std::istream::pos_type w_pos = word->tellg();
+            typename std::istream::pos_type s_pos = text->tellg();
+            typename std::istream::pos_type w_pos = pattern->tellg();
             typename std::istream::pos_type r_pos = s_pos - w_pos;
 
-            word->seekg(table[w_pos] + 1, std::ios::beg);
+            pattern->seekg(table[w_pos] + 1, std::ios::beg);
 
             return std::optional<size_t>(r_pos);
-        } else if (search->eof()) {
+        } else if (text->eof()) {
             return std::optional<size_t>();
         } else {
             throw std::runtime_error("An error occured while running the string search.");

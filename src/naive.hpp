@@ -20,7 +20,7 @@
 namespace string_search {
     class NaiveStringSearch : public BaseStringSearch {
     public:
-        NaiveStringSearch(std::unique_ptr<std::istream> search, std::unique_ptr<std::istream> word);
+        NaiveStringSearch(std::unique_ptr<std::istream> text, std::unique_ptr<std::istream> pattern);
     
         std::optional<size_t> next() override;
     };

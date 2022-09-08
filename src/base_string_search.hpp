@@ -20,13 +20,13 @@
 namespace string_search {
     class BaseStringSearch {
     protected:
-        std::unique_ptr<std::istream> search;
-        std::unique_ptr<std::istream> word;
+        std::unique_ptr<std::istream> text;
+        std::unique_ptr<std::istream> pattern;
 
     public:
-        BaseStringSearch(std::unique_ptr<std::istream> search, std::unique_ptr<std::istream> word) :
-            search(std::move(search)),
-            word(std::move(word))
+        BaseStringSearch(std::unique_ptr<std::istream> text, std::unique_ptr<std::istream> pattern) :
+            text(std::move(text)),
+            pattern(std::move(pattern))
         {};
 
         virtual std::optional<size_t> next() = 0;

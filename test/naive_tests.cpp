@@ -17,16 +17,16 @@
 #include "naive.hpp"
 
 TEST_CASE("String search test 1") {
-    std::unique_ptr<std::stringstream> search = std::make_unique<std::stringstream>(
+    std::unique_ptr<std::stringstream> text = std::make_unique<std::stringstream>(
         "ABC ABCDAB ABCDABCDABDE",
         std::ios::in | std::ios::binary
     );
-    std::unique_ptr<std::stringstream> word = std::make_unique<std::stringstream>(
+    std::unique_ptr<std::stringstream> pattern = std::make_unique<std::stringstream>(
         "ABCDABD",
         std::ios::in | std::ios::binary
     );
 
-    string_search::NaiveStringSearch naive(std::move(search), std::move(word));
+    string_search::NaiveStringSearch naive(std::move(text), std::move(pattern));
     
     std::optional<size_t> result = naive.next();
 
@@ -35,16 +35,16 @@ TEST_CASE("String search test 1") {
 }
 
 TEST_CASE("String search test 2") {
-    std::unique_ptr<std::stringstream> search = std::make_unique<std::stringstream>(
+    std::unique_ptr<std::stringstream> text = std::make_unique<std::stringstream>(
         "TETTE TERETTE",
         std::ios::in | std::ios::binary
     );
-    std::unique_ptr<std::stringstream> word = std::make_unique<std::stringstream>(
+    std::unique_ptr<std::stringstream> pattern = std::make_unique<std::stringstream>(
         "TE",
         std::ios::in | std::ios::binary
     );
 
-    string_search::NaiveStringSearch naive(std::move(search), std::move(word));
+    string_search::NaiveStringSearch naive(std::move(text), std::move(pattern));
     
     std::optional<size_t> result = naive.next();
     if (result.has_value()) CHECK_EQ(result.value(), 0);
