@@ -37,9 +37,26 @@ if (BUILD_TESTS)
         string_search
         PUBLIC cxx_std_20
     )
-
     add_test(
         NAME kmp_test
         COMMAND "kmp_tests"
+    )
+
+    add_executable(
+        naive_tests
+        test/naive_tests.cpp
+    )
+    target_link_libraries(
+        naive_tests
+        PUBLIC string_search
+        PRIVATE doctest::doctest
+    )
+    target_compile_features(
+        naive_tests
+        PUBLIC cxx_std_20
+    )
+    add_test(
+        NAME naive_test
+        COMMAND "naive_tests"
     )
 endif(BUILD_TESTS)
