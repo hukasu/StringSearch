@@ -9,4 +9,5 @@ The algorithms implementend in this project are:
 | Knuth–Morris–Pratt | Done |
 
 ## References
+https://en.wikipedia.org/wiki/String-searching_algorithm
 https://en.wikipedia.org/wiki/Knuth%E2%80%93Morris%E2%80%93Pratt_algorithm
