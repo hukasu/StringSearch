@@ -21,8 +21,6 @@ namespace string_search {
         std::vector<size_t> bad_char;
         std::vector<size_t> good_preffix;
 
-        typename std::istream::pos_type getStreamLenght(std::unique_ptr<std::istream> &stream);
-
         void makeBadCharTable();
         void makeGoodPrefixTable();
     public:

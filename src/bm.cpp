@@ -20,17 +20,6 @@ namespace string_search {
         makeGoodPrefixTable();
     }
 
-    typename std::istream::pos_type BoyerMooreStringSearch::getStreamLenght(
-        std::unique_ptr<std::istream> &stream
-    ) {
-        typename std::istream::pos_type len, rewind;
-        rewind = stream->tellg();
-        stream->seekg(0, std::ios::end);
-        len = stream->tellg();
-        stream->seekg(rewind, std::ios::beg);
-        return len;
-    }
-
     void BoyerMooreStringSearch::makeBadCharTable() {
         pattern->seekg(0, std::ios::beg);
         typename std::istream::pos_type pat_len = getStreamLenght(pattern);
