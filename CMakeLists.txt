@@ -26,6 +26,24 @@ if (BUILD_TESTS)
     find_package("doctest" CONFIG REQUIRED)
 
     add_executable(
+        naive_tests
+        test/naive_tests.cpp
+    )
+    target_link_libraries(
+        naive_tests
+        PUBLIC string_search
+        PRIVATE doctest::doctest
+    )
+    target_compile_features(
+        naive_tests
+        PUBLIC cxx_std_20
+    )
+    add_test(
+        NAME naive_test
+        COMMAND "naive_tests"
+    )
+
+    add_executable(
         kmp_tests
         test/kmp_tests.cpp
     )
@@ -44,20 +62,20 @@ if (BUILD_TESTS)
     )
 
     add_executable(
-        naive_tests
-        test/naive_tests.cpp
+        bm_tests
+        test/bm_tests.cpp
     )
     target_link_libraries(
-        naive_tests
+        bm_tests
         PUBLIC string_search
         PRIVATE doctest::doctest
     )
     target_compile_features(
-        naive_tests
+        bm_tests
         PUBLIC cxx_std_20
     )
     add_test(
-        NAME naive_test
-        COMMAND "naive_tests"
+        NAME bm_test
+        COMMAND "bm_tests"
     )
 endif(BUILD_TESTS)
