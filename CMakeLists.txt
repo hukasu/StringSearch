@@ -80,4 +80,22 @@ if (BUILD_TESTS)
         NAME bm_test
         COMMAND "bm_tests"
     )
+
+    add_executable(
+        bmh_tests
+        test/bmh_tests.cpp
+    )
+    target_link_libraries(
+        bmh_tests
+        PUBLIC string_search
+        PRIVATE doctest::doctest
+    )
+    target_compile_features(
+        bmh_tests
+        PUBLIC cxx_std_20
+    )
+    add_test(
+        NAME bmh_test
+        COMMAND "bmh_tests"
+    )
 endif(BUILD_TESTS)
