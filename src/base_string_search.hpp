@@ -23,6 +23,8 @@ namespace string_search {
         std::unique_ptr<std::istream> text;
         std::unique_ptr<std::istream> pattern;
 
+        typename std::istream::pos_type getStreamLenght(std::unique_ptr<std::istream> &stream);
+
     public:
         BaseStringSearch(std::unique_ptr<std::istream> text, std::unique_ptr<std::istream> pattern) :
             text(std::move(text)),
