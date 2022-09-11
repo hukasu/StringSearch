@@ -9,6 +9,7 @@ add_library(
     STATIC
     src/naive.cpp
     src/kmp.cpp
+    src/bm.cpp
 )
 target_include_directories(
     string_search
